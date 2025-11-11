@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { AppContext } from "../context/AppContext";
+import { toast } from "react-toastify";
 
 const RegisterLogin = () => {
+
+  const {backend, setToken} = useContext(AppContext);
 
   const [state, setState] = useState("Register");
   const [name, setName] = useState("");
@@ -10,10 +15,43 @@ const RegisterLogin = () => {
 
   const navigate = useNavigate();
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    navigate("/dashboard");
+    try {
+
+      if(state === "Register") {
+        const {data} = await axios.post(backend + "/api/user/register", {name, email, password});
+
+        if(data.success) {
+          localStorage.setItem("todo-token", data.token);
+          setToken(data.token);
+          toast.success(data.message);
+          navigate("/dashboard");
+        }
+        else {
+          toast.error(data.message);
+        }
+      }
+      else {
+        const {data} = await axios.post(backend + "/api/user/login", {email, password});
+
+        if(data.success) {
+          localStorage.setItem("todo-token", data.token);
+          setToken(data.token);
+          toast.success(data.message);
+          navigate("/dashboard");
+        }
+        else {
+          toast.error(data.message);
+        }
+      }
+      
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+
   };
 
   return (
@@ -79,7 +117,9 @@ const RegisterLogin = () => {
             type="submit"
             className="w-full bg-indigo-600 text-white py-2 rounded-lg font-semibold hover:bg-indigo-700 transition duration-300"
           >
-            Submit
+            {
+              state === "Register" ? "Create Account" : "Login"
+            }
           </button>
 
         </form>
