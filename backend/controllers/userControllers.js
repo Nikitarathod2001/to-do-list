@@ -107,4 +107,26 @@ const userLogin = async (req, res) => {
   }
 };
 
-export {userRegister, userLogin};
+// --- API to get user data ---
+const getUserData = async (req, res) => {
+  try {
+
+    const userId = req.userId;
+    const username = req.username;
+
+    res.json({
+      success: true,
+      userId,
+      username
+    });
+    
+  } catch (error) {
+    console.log(error);
+    res.json({
+      success: false,
+      message: error.message
+    });
+  }
+};
+
+export {userRegister, userLogin, getUserData};
