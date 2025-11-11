@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const todosSchema = new mongoose.Schema({
-  todoText: {
+  task: {
     type: String
   },
   completed: {
