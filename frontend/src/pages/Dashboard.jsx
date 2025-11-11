@@ -1,9 +1,11 @@
 import React from 'react'
+import DashboardHeader from '../components/DashboardHeader'
 
 const Dashboard = () => {
   return (
     <div>
-      Dashboard
+      <DashboardHeader/>
+      <hr className="border-gray-300" />
     </div>
   )
 }
