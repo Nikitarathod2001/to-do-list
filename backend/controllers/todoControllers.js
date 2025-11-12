@@ -80,4 +80,26 @@ const changeStatus = async (req, res) => {
   }
 };
 
-export {addTask, getTodoList, changeStatus};
+// --- API to delete todo ---
+const deleteTodo = async (req, res) => {
+  try {
+
+    const {todoId} = req.body;
+
+    await todosModel.findByIdAndDelete(todoId);
+
+    res.json({
+      success: true,
+      message: "Todo deleted"
+    });
+    
+  } catch (error) {
+    console.log(error);
+    res.json({
+      success: false,
+      message: error.message
+    });
+  }
+};
+
+export {addTask, getTodoList, changeStatus, deleteTodo};
