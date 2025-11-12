@@ -12,7 +12,7 @@ const TodoList = () => {
   return (
     todos &&
     todos.length > 0 && (
-      <div className="flex flex-col items-center mt-6 p-6 bg-gradient-to-br from-blue-50 to-indigo-100 max-w-2xl mx-auto border border-indigo-200 rounded-2xl shadow-lg">
+      <div className="flex flex-col items-center mt-6 p-6 max-w-2xl mx-auto">
         {todos.map((todo) => (
           <TodoItem key={todo._id} todo={todo} />
         ))}

@@ -25,6 +25,24 @@ const TodoItem = ({ todo }) => {
     }
   };
 
+  const deleteTodo = async () => {
+    try {
+
+      const {data} = await axios.delete(backend + "/api/todos/delete-todo", {data: {todoId : todo._id}});
+
+      if(data.success) {
+        setStatus(prev => !prev);
+      }
+      else {
+        toast.error(data.message);
+      }
+      
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
+
   return (
     <div className="flex items-center justify-between w-full max-w-md bg-white border border-gray-300 rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-200 mb-4">
       <p
@@ -44,7 +62,7 @@ const TodoItem = ({ todo }) => {
         >
           {todo.completed ? "Completed" : "Pending"}
         </button>
-        <button className="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-sm font-semibold hover:bg-red-200 transition">
+        <button onClick={deleteTodo} className="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-sm font-semibold hover:bg-red-200 transition">
           Delete
         </button>
       </div>

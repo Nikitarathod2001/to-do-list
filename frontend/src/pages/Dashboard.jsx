@@ -8,7 +8,7 @@ const Dashboard = () => {
   
 
   return (
-    <div>
+    <div className='h-screen bg-zinc-200'>
       <DashboardHeader/>
       <TodoInput/>
       <TodoList/>
