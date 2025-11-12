@@ -64,10 +64,10 @@ const changeStatus = async (req, res) => {
     const todoItem = await todosModel.findById(todoId);
 
     todoItem.completed = !todoItem.completed;
-    todoItem.save();
+    await todoItem.save();
 
     res.json({
-      success: false,
+      success: true,
       todoItem
     });
     
