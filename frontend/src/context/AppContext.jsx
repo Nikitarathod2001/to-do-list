@@ -13,6 +13,7 @@ const AppContextProvider = (props) => {
   );
   const [username, setUsername] = useState(false);
   const [todos, setTodos] = useState([]);
+  const [status, setStatus] = useState(false);
 
   const getUserdata = async () => {
     try {
@@ -54,7 +55,8 @@ const AppContextProvider = (props) => {
     token, setToken,
     username,
     getTodoList,
-    todos
+    todos,
+    status
   };
 
   useEffect(() => {

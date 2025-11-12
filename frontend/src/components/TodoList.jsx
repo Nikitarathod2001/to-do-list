@@ -3,11 +3,11 @@ import { AppContext } from "../context/AppContext";
 import TodoItem from "./TodoItem";
 
 const TodoList = () => {
-  const { todos, getTodoList } = useContext(AppContext);
+  const { todos, getTodoList, status } = useContext(AppContext);
 
   useEffect(() => {
     getTodoList();
-  }, []);
+  }, [status]);
 
   console.log(todos);
 

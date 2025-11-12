@@ -1,6 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../context/AppContext";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const TodoItem = ({ todo }) => {
+
+  const {backend, setStatus} = useContext(AppContext);
+
+  const changeStatus = async () => {
+    try {
+
+      const {data} = await axios.post(backend + "/api/todos/change-status", {todoId: todo._id});
+
+      if(data.success) {
+        setStatus(prev => !prev);
+      }
+      else {
+        toast.error(data.message);
+      }
+      
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
+
   return (
     <div className="flex items-center justify-between w-full max-w-md bg-white border border-gray-300 rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-200 mb-4">
       <p
@@ -11,7 +35,7 @@ const TodoItem = ({ todo }) => {
         {todo.task}
       </p>
       <div className="flex gap-3">
-        <button
+        <button onClick={changeStatus}
           className={`px-3 py-1 rounded-lg text-sm font-semibold transition ${
             todo.completed === "true"
               ? "bg-green-100 text-green-700 hover:bg-green-200"
