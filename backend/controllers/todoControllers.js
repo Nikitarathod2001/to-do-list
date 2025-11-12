@@ -33,4 +33,26 @@ const addTask = async(req, res) => {
   }
 };
 
-export {addTask};
+// --- API to get todo-list ---
+const getTodoList = async (req, res) => {
+  try {
+
+    const userId = req.userId;
+
+    const todos = await todosModel.find({userId});
+
+    res.json({
+      success: true,
+      todos
+    });
+    
+  } catch (error) {
+    console.log(error);
+    res.json({
+      success: false,
+      message: error.message
+    });
+  }
+};
+
+export {addTask, getTodoList};
