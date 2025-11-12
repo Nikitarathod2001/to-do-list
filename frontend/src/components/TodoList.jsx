@@ -9,8 +9,6 @@ const TodoList = () => {
     getTodoList();
   }, [status]);
 
-  console.log(todos);
-
   return (
     todos &&
     todos.length > 0 && (

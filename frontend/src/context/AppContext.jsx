@@ -56,7 +56,7 @@ const AppContextProvider = (props) => {
     username,
     getTodoList,
     todos,
-    status
+    status, setStatus
   };
 
   useEffect(() => {
