@@ -11,8 +11,8 @@ const AppContextProvider = (props) => {
   const [token, setToken] = useState(
     localStorage.getItem("todo-token") ? localStorage.getItem("todo-token") : false
   );
-  const [userId, setUserId] = useState(false);
   const [username, setUsername] = useState(false);
+  const [todos, setTodos] = useState([]);
 
   const getUserdata = async () => {
     try {
@@ -20,7 +20,6 @@ const AppContextProvider = (props) => {
       const {data} = await axios.get(backend + "/api/user/get-userdata", {headers: {token}});
 
       if(data.success) {
-        setUserId(data.userId);
         setUsername(data.username);
       }
       else {
@@ -32,10 +31,30 @@ const AppContextProvider = (props) => {
     }
   };
 
+  const getTodoList = async () => {
+    try {
+
+      const {data} = await axios.get(backend + "/api/todos/get-todo-list", {headers: {token}});
+
+      if(data.success) {
+        setTodos(data.todos);
+      }
+      else {
+        toast.error(data.message);
+      }
+      
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
+
   const value = {
     backend,
     token, setToken,
-    userId, username
+    username,
+    getTodoList,
+    todos
   };
 
   useEffect(() => {
