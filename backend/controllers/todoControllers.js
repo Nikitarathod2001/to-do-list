@@ -55,4 +55,29 @@ const getTodoList = async (req, res) => {
   }
 };
 
-export {addTask, getTodoList};
+// --- API to change status for completed ---
+const changeStatus = async (req, res) => {
+  try {
+
+    const {todoId} = req.body;
+
+    const todoItem = await todosModel.findById(todoId);
+
+    todoItem.completed = todoItem.completed === "true" ? "false" : "true";
+    todoItem.save();
+
+    res.json({
+      success: false,
+      todoItem
+    });
+    
+  } catch (error) {
+    console.log(error);
+    res.json({
+      success: false,
+      message: error.message
+    });
+  }
+};
+
+export {addTask, getTodoList, changeStatus};
