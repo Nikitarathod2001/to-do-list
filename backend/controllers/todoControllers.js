@@ -63,7 +63,7 @@ const changeStatus = async (req, res) => {
 
     const todoItem = await todosModel.findById(todoId);
 
-    todoItem.completed = todoItem.completed === "true" ? "false" : "true";
+    todoItem.completed = !todoItem.completed;
     todoItem.save();
 
     res.json({

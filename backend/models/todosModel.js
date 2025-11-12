@@ -5,8 +5,8 @@ const todosSchema = new mongoose.Schema({
     type: String
   },
   completed: {
-    type: String,
-    default: "false"
+    type: Boolean,
+    default: false
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId, ref: "users"
